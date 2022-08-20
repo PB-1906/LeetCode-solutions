@@ -3,26 +3,24 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& arr) {
       int n=arr.size();
-      vector<vector<int>> dp(n+1,vector<int>(n+1,0));
+      vector<int> dp(n,1);
     
-    for(int ind = n-1; ind>=0; ind --){
-        for (int prev = ind-1; prev >=-1; prev --){
+    for(int i=0; i<=n-1; i++){
+        for(int prev = 0; prev <=i-1; prev ++){
             
-            int notTake = 0 + dp[ind+1][prev +1];
-    
-            int take = 0;
-    
-            if(prev == -1 || arr[ind] > arr[prev]){
-                
-                take = 1 + dp[ind+1][ind+1];
+            if(arr[prev]<arr[i]){
+                dp[i] = max(dp[i], 1 + dp[prev]);
             }
-    
-            dp[ind][prev+1] = max(notTake,take);
-            
         }
     }
     
-    return dp[0][0];
+    int ans = -1;
+    
+    for(int i=0; i<=n-1; i++){
+        ans = max(ans, dp[i]);
+    }
+    
+    return ans;
       }
     
 };
