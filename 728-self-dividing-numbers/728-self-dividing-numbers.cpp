@@ -1,12 +1,12 @@
 class Solution {
 public:
-    bool isSelfDiv(int num)
+    bool isSelfDivisible(int num)
     {
-        int dupn = num;
-        while(dupn)
+        int duplicant = num;
+        while(duplicant)
         {
-            int rem = dupn%10;
-            dupn /= 10;
+            int rem = duplicant %10;
+            duplicant /= 10;
             if(rem == 0 || num % rem != 0)
                 return false;
         }
@@ -17,7 +17,7 @@ public:
         vector<int> ans;
         for(int i=left; i<=right; i++)
         {
-            if(isSelfDiv(i))
+            if(isSelfDivisible(i))
                 ans.push_back(i);
         }
         return ans;
