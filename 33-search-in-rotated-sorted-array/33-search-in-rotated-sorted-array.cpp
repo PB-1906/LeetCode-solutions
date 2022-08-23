@@ -14,9 +14,6 @@ public:
  
     return binarySearch(arr, low, (mid - 1), key);
 }
- 
-// Function to get pivot. For array 3, 4, 5, 6, 1, 2
-// it returns 3 (index of 6)
 int findPivot(vector<int> arr, int low, int high)
 {
     // Base cases
@@ -24,8 +21,6 @@ int findPivot(vector<int> arr, int low, int high)
         return -1;
     if (high == low)
         return low;
- 
-    // low + (high - low)/2;
     int mid = (low + high) / 2;
     if (mid < high && arr[mid] > arr[mid + 1])
         return mid;
