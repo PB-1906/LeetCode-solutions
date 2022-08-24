@@ -4,11 +4,9 @@ public:
           unordered_map<int,int> m;
           stack <int> s;
           vector <int> v;
-          int ele;
           for(int i=0;i<nums2.size();i++){
-          ele = nums2[i];
-          while(!s.empty() && ele>s.top()){
-          m[s.top()] = ele;
+          while(!s.empty() && nums2[i]>s.top()){
+          m[s.top()] = nums2[i];
           s.pop();
           }
           s.push(nums2[i]);
