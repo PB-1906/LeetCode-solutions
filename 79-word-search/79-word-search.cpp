@@ -1,42 +1,35 @@
 class Solution {
 public:
-    bool backtrack(vector<vector<char>>& board, int m, int n, string word) {
-        if (m < 0 || n < 0 || m >= board.size() || n >= board[0].size()) {
-            return false; 
+      bool checkword(vector<vector<char>> &board, int i, int j, string word, vector<vector<int>> &vis, int k)
+    {
+        if(i<0 || i>=board.size() || j<0 || j>=board[0].size() ||
+           vis[i][j])
+        {
+            return false;
         }
+        if(word[k]!=board[i][j])
+            return false;
+        vis[i][j]=1;
+        if(k==word.size()-1)
+            return true;
         
-        if (board[m][n] != word.back()) {
-            return false; 
-        }
+        bool flag = (checkword(board, i+1, j, word, vis, k+1) || checkword(board, i-1, j, word, vis, k+1) ||checkword(board, i, j+1, word, vis, k+1) ||checkword(board, i, j-1, word, vis, k+1));
+        vis[i][j]=0;
+        return flag;
         
-        word.pop_back();
-        if (word.empty()) {
-            return true; 
-        }
-        
-        char c = board[m][n];
-        board[m][n] = 0; 
-        
-        bool outcome = backtrack(board, m + 1, n, word)
-                || backtrack(board, m - 1, n, word)
-                || backtrack(board, m, n + 1, word)
-                || backtrack(board, m, n - 1, word);
-        
-        board[m][n] = c; 
-        return outcome;
     }
-    
     bool exist(vector<vector<char>>& board, string word) {
-        string reversedWord {word.begin(), word.end()};
-        
-        for (int m = 0; m < board.size(); ++m) {
-            for (int n = 0; n < board[0].size(); ++n) {
-                if (backtrack(board, m, n, reversedWord)) {
-                    return true;
-                }
+        for(int i=0; i<board.size(); i++)
+        {
+            for(int j=0; j<board[0].size(); j++)
+            {
+                vector<vector<int>> vis(board.size(), vector<int>(board[0].
+                                                                 size(), 0));
+                if(board[i][j]==word[0])
+                    if(checkword(board, i, j, word, vis, 0))
+                        return true;
             }
         }
-        
         return false;
     }
 };
