@@ -5,10 +5,10 @@ public:
         if(i >= m) return 0;
         if(dp[l][i] != INT_MIN) return dp[l][i];
         
-        int leftPicked = solve(nums, multipliers, l + 1, i + 1, n, m) + nums[l] * multipliers[i];
-        int rightPicked = solve(nums, multipliers, l, i + 1, n, m) + nums[n - (i - l) - 1] * multipliers[i];
+        int leftPick = solve(nums, multipliers, l + 1, i + 1, n, m) + nums[l] * multipliers[i];
+        int rightPick = solve(nums, multipliers, l, i + 1, n, m) + nums[n - (i - l) - 1] * multipliers[i];
         
-        return dp[l][i] = max(leftPicked, rightPicked);
+        return dp[l][i] = max(leftPick, rightPick);
     }
     
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
