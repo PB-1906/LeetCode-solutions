@@ -1,56 +1,24 @@
 class Solution {
 public:
-      bool isBipartiteHelper(vector<vector<int>>& graph, vector<int>& color, int startNode){
-        
-        bool ans = true;
-        int n = graph.size();
-        queue<int> q;        
-        int curColor = -1;
-        q.push(startNode);
-        color[startNode] = curColor;
-        
-        while(!q.empty()){
-            
-            int frontNode = q.front();            
-            
-            for(int i = 0; i < graph[frontNode].size(); i++){
-                
-                if(color[graph[frontNode][i]] == 0){
-                    
-                    q.push(graph[frontNode][i]);
-                    color[graph[frontNode][i]] = -1*color[frontNode];
-                    
-                }else if(color[graph[frontNode][i]] == color[frontNode]){
-                    return false;
-                }
-                
+     bool dfs(vector<vector<int>> graph, vector<int> &color, int node, int adjColor){
+        color[node]=1-adjColor;
+        for(auto i:graph[node]){
+            if(color[i]==-1){
+                if(!dfs(graph, color, i, color[node]))return false;
             }
-            q.pop();
-            curColor = -1*curColor;
-            
-            
+            else if(color[i]==color[node])return false;
         }
-        
         return true;
-        
     }
-    
-    bool isBipartite(vector<vector<int>>& graph){
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<int> color(n,-1);
         
-        int n = graph.size();
-        int result = true;
-        vector<int> color(n, 0);
-        
-        for(int i = 0; i < n; i++){
-            
-            if(color[i] == 0){
-                result = (result && isBipartiteHelper(graph, color, i));
-                if(!result) break;
+        for(int i=0;i<n;i++){
+            if(color[i]==-1){
+                if(!dfs(graph, color, i, 0))return false;
             }
-            
         }
-        
-        return result;
-        
-}
+        return true;
+    }
 };
