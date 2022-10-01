@@ -7,10 +7,10 @@ public:
 			if(matrix[i][j]!=0) matrix[i][j]+=min({matrix[i-1][j],matrix[i][j-1],matrix[i-1][j-1]});
 		}
 	}
-	int cnt=0;
+	int count=0;
 	for(int i=0;i<m;i++){
-		for(int j=0;j<n;j++) cnt+=matrix[i][j];
+		for(int j=0;j<n;j++) count+=matrix[i][j];
 	}
-	return cnt;
+	return count;
 }
 };
